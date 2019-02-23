@@ -71,7 +71,7 @@ function mutated = mutation(individual, mutation_rate)
     prob = (rand(size(individual))) > mutation_rate;
     prob_inverse = prob == 0;
     
-    individual_rand = rand(size(individual));
+    individual_rand = (rand(size(individual))>0.5);
     
     mutated = (individual .* prob_inverse) + (individual_rand .* prob);
 end
