@@ -1,4 +1,4 @@
-function population_ordered = GA(pop_size, cross_rate, mutation_rate, belong_percent, max_iterations, max_constraint, itens)
+function population = GA(pop_size, cross_rate, mutation_rate, belong_percent, max_iterations, max_constraint, itens)
     number_itens = size(itens,1);
     INDIVIDUAL_SIZE = 1:number_itens;
     
@@ -13,7 +13,7 @@ function population_ordered = GA(pop_size, cross_rate, mutation_rate, belong_per
     wp_population = sortrows([(price') (weight') population], 1,'descend');
     
     %Pega apenas a parte da popução
-    population_ordered = wp_population(:, (INDIVIDUAL_SIZE + 2))
+    population = wp_population(:, (INDIVIDUAL_SIZE + 2));
     
   
     for it=1:max_iterations
@@ -22,29 +22,34 @@ function population_ordered = GA(pop_size, cross_rate, mutation_rate, belong_per
         offspring_pop = zeros([(pop_size - offspring_size) length(INDIVIDUAL_SIZE)]);
         
         for i=1:(pop_size - offspring_size)
-            mate1 = randi(offspring_size);
-            mate2 = randi(offspring_size);
-            new_mate = crossover(population(mate1,:), population(mate2,:));
+            random_dad1 = randi(offspring_size);
+            random_dad2 = randi(offspring_size);
+            new_individual = crossover(population(random_dad1,:), population(random_dad2,:));
             
-            offspring_pop(i,:) = mutation(new_mate, mutation_rate, lower_bound, upper_bound);
+            offspring_pop(i,:) = mutation(new_individual, mutation_rate);
         end
         
-        new_pop_size = 2 * offspring_size;
-        new_pop = zeros(new_pop_size, length(INDIVIDUAL_SIZE));
+        new_pop = zeros(pop_size, length(INDIVIDUAL_SIZE));
         new_pop(1:offspring_size,:) = population(1:offspring_size,:);
-        new_pop((offspring_size + 1):new_pop_size, :) = offspring_pop(1:offspring_size,:);
+        new_pop((offspring_size + 1):pop_size, :) = offspring_pop(:,:);
         
-        fit_offspring = fitness(offspring_pop, max_constraint);
-        fit = [fit(1:offspring_size,:);fit_offspring];
+         %Chamando a função fitness, retorna o preço já com punição
+        [weight,price] = fitness(offspring_pop, itens, max_constraint);
         
-        new_pop = sortrows([fit new_pop], 1, 'descend');
+        %Concatena os pais com os novos indivíduos
+        parcial_population = [wp_population(1:offspring_size,:); [(price') (weight') offspring_pop]];
         
-        fit = new_pop(1:pop_size,1);
-        population = new_pop(1:pop_size, (INDIVIDUAL_SIZE + 1));
+        %Ordena a popução em ordem dos melhores para os piores individuos
+        wp_population = sortrows(parcial_population, 1,'descend');
         
-        melhores(it) = fit(1);
+        %Pega apenas a parte da popução
+        population = wp_population(:, (INDIVIDUAL_SIZE + 2));
+        
+        disp("Iteracao:" + int2str(it));
+        wp_population(1,1)
+        wp_population(1,2)
+        
     end
-    %}
 end
 
 function [weight,price] = fitness(population, itens, max_constraint)
@@ -55,27 +60,18 @@ function [weight,price] = fitness(population, itens, max_constraint)
     price = (weight<=max_constraint).*(price_nopunishment);
 end
 
-function [mtow, constraint] = calcFit(individual) 
-    try
-        [mtow, constraint] = Biplano_MDO_2019ULTRACABULOSO(individual);
-    catch ex
-        mtow = 0;
-        constraint = 0;
-    end
+function offspring = crossover(individual_a,individual_b)
+    individual_len = length(individual_a);
+    cross_point = randi(individual_len);
+
+    offspring = [individual_a(1:cross_point) individual_b(cross_point + 1:end)];
 end
 
-function offspring = crossover(a,b)
-    ind_len = length(a);
-    cross_point = randi(ind_len);
-
-    offspring = [a(1:cross_point) b(cross_point + 1:end)];
-end
-
-function mutated = mutation(individual, mutation_rate, lower_bound, upper_bound) 
+function mutated = mutation(individual, mutation_rate) 
     prob = (rand(size(individual))) > mutation_rate;
     prob_inverse = prob == 0;
     
-    individual_rand = rand(size(individual)) .* (upper_bound - lower_bound) + lower_bound;
+    individual_rand = rand(size(individual));
     
     mutated = (individual .* prob_inverse) + (individual_rand .* prob);
 end
