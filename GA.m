@@ -1,10 +1,9 @@
-function population = GA(pop_size, cross_rate, mutation_rate, belong_percent, max_iterations, max_constraint, itens)
+function wp_population = GA(pop_size, cross_rate, mutation_rate, belong_percent, max_iterations, max_constraint, itens)
     number_itens = size(itens,1);
     INDIVIDUAL_SIZE = 1:number_itens;
     
     %Gerando a população inicial, de maneira randomica
     population = (randi(100,pop_size,length(INDIVIDUAL_SIZE))) > belong_percent;
-    disp(population)
    
     %Chamando a função fitness, retorna o preço já com punição
     [weight,price] = fitness(population, itens, max_constraint);
@@ -44,12 +43,7 @@ function population = GA(pop_size, cross_rate, mutation_rate, belong_percent, ma
         
         %Pega apenas a parte da popução
         population = wp_population(:, (INDIVIDUAL_SIZE + 2));
-        
-        disp("Iteracao:" + int2str(it));
-        wp_population(1,1)
-        wp_population(1,2)
-        population(1,:)
-        
+            
     end
 end
 

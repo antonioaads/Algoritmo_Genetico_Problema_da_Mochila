@@ -16,9 +16,7 @@
 
 %Chamada da função
 final_population    = GA(pop_size, cross_rate, mutation_rate, belong_percent, max_iterations, max_constraint, in);
-end_price           = final_population(1,1);
-end_weight          = final_population(1,2);
-
+end_weight          = final_population(1,1)
 disp("Valor inserido na mochila:");
 disp(final_population(1,1));
 disp("Peso utilizado:");

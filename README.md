@@ -24,3 +24,24 @@ No início da main possui uma linha de load, que busca o itens para o workspace 
 
     in = load ('itens/nome_do_seu_documento.txt');
 
+## Execução
+
+Para executar o código, basta auterar os parâmetros desejáveis, e rodar o main.
+
+    %Alterar os dados abaixo
+
+        %Load do documento com a listagem dos itens
+        in = load ('itens/KNAPDATA40.txt');
+
+        pop_size        =   20;     %Tamanho da população
+        cross_rate      =   0.6;    %Taxa de crossover dos indivíduos
+        mutation_rate   =   0.90;   %Probabilidade de não mutação de um gene
+        belong_percent  =   85;     %Porcentagem de preenchimento dos genes do individuo aleatorio
+        max_iterations  =   1000;   %Número máximo de iterações
+        max_constraint  =   15;     %Tamanho máximo suportado pela mochila
+
+    %Fim da parte de alteração de dados
+
+Ao final da execução, temos o seguinte resultado: (Teste feito com os ardumentos listados acima)
+
+![Saída](img/out.png)
