@@ -48,10 +48,13 @@ function population = GA(pop_size, cross_rate, mutation_rate, belong_percent, ma
         disp("Iteracao:" + int2str(it));
         wp_population(1,1)
         wp_population(1,2)
+        population(1,:)
         
     end
 end
 
+%Função que chama a função que calcula o peso e o preço de cada invidividuo
+%da população e aplica a devida punição
 function [weight,price] = fitness(population, itens, max_constraint)
     %Chama a função que calcula o peso e o preço da mochila de cada ind.
     [weight, price_nopunishment] = BackpackWeight(population, itens);
@@ -60,6 +63,7 @@ function [weight,price] = fitness(population, itens, max_constraint)
     price = (weight<=max_constraint).*(price_nopunishment);
 end
 
+%Função que faz o crossover de dois indivíduos de maneira randomica
 function offspring = crossover(individual_a,individual_b)
     individual_len = length(individual_a);
     cross_point = randi(individual_len);
@@ -67,6 +71,7 @@ function offspring = crossover(individual_a,individual_b)
     offspring = [individual_a(1:cross_point) individual_b(cross_point + 1:end)];
 end
 
+%Função que faz a mutação de um individuo de maneira randomica
 function mutated = mutation(individual, mutation_rate) 
     prob = (rand(size(individual))) > mutation_rate;
     prob_inverse = prob == 0;
