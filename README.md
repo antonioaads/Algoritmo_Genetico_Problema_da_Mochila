@@ -16,7 +16,11 @@ Antes de rodar o algoritmo, necessita-se de ter um banco de dados que liste os i
 
 O padrão de como esses itens são listados é de extrema importância, e devem seguir o seguinte padrão: Três colunas separadas por espaço, sendo cada linha representada por um item, com a primeira coluna sendo a ordem do item, numero de 1 até o número máximo de itens, a segunda o peso do item, e a terceira o valor do item. 
 
-Um modelo válido pode ser observado abaixo:
+Um modelo válido, com 20 itens, pode ser observado abaixo:
 
 ![Modelo de Entrada](img/in_model.png)
+
+No início da main possui uma linha de load, que busca o itens para o workspace do MATLAB. Caso queira usar um exemplo próprio, basta colocar o nome do seu documento na linha do load, conforme abaixo:
+
+    in = load ('itens/nome_do_seu_documento.txt');
 
