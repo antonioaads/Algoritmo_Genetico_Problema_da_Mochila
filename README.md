@@ -26,7 +26,7 @@ No início da main possui uma linha de load, que busca o itens para o workspace 
 
 ## Execução
 
-Para executar o código, basta auterar os parâmetros desejáveis, e rodar o main.
+Para executar o código, basta alterar os parâmetros desejáveis, e rodar o main.
 
     %Alterar os dados abaixo
 
@@ -42,6 +42,10 @@ Para executar o código, basta auterar os parâmetros desejáveis, e rodar o mai
 
     %Fim da parte de alteração de dados
 
-Ao final da execução, temos o seguinte resultado: (Teste feito com os ardumentos listados acima)
+Ao final da execução, temos o seguinte resultado: (Teste feito com os argumentos listados acima)
 
 ![Saída](img/out.png)
+
+*Vale lembrar que o GA não necessariamente encontra a solução ótima, e as vezes pode nem encontrar uma próxima, sendo necessário reajustar os parâmetros para melhorar os resultados. Outro fato interessante é que ele nunca irá executar de maneira identica ao executar mais de uma vez, por exemplo, caso repitam o teste que demonstrei acima, podem encontrar um valor distindo, devido as funções randômicas utilizadas.*
+
+
