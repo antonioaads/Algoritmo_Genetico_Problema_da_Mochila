@@ -46,6 +46,6 @@ Ao final da execução, temos o seguinte resultado: (Teste feito com os argument
 
 ![Saída](img/out.png)
 
-*Vale lembrar que o GA não necessariamente encontra a solução ótima, e as vezes pode nem encontrar uma próxima, sendo necessário reajustar os parâmetros para melhorar os resultados. Outro fato interessante é que ele nunca irá executar de maneira identica ao executar mais de uma vez, por exemplo, caso repitam o teste que demonstrei acima, podem encontrar um valor distindo, devido as funções randômicas utilizadas.*
+*Vale lembrar que o GA não necessariamente encontra a solução ótima, e as vezes pode nem encontrar uma próxima, sendo necessário reajustar os parâmetros para melhorar os resultados. Outro fato interessante é que ele nunca irá executar de maneira idêntica ao executar mais de uma vez, por exemplo, caso repitam o teste que demonstrei acima, podem encontrar um valor distindo, devido as funções randômicas utilizadas.*
 
 
